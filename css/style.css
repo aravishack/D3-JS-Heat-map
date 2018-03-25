@@ -101,3 +101,8 @@ div#heatmap-table-wrap {
     text-transform: uppercase;
     letter-spacing: 2px;
 }
+
+rect.data {
+    stroke: #E6E6E6;
+    stroke-width: 2px;
+}

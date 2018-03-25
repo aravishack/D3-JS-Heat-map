@@ -47,11 +47,10 @@ function d3Call() {
             left: 50,
             right: 50
         };
-        var times = yAxis.length;
+        var times = yAxis.length+5;
         var innerWidth = window.innerWidth;
         var width = Math.max(900, innerWidth) - margin.right - margin.left;
         var gridSize = Math.floor(width / times);
-        gridSize -= 10;
         var height = gridSize * (yAxis.length + 2);
 
         // Create svg
@@ -109,8 +108,6 @@ function d3Call() {
             .attr("class", "data")
             .attr("width", gridSize)
             .attr("height", gridSize)
-            .style("stroke", "white")
-            .style("stroke-opacity", 0.6)
             .style("fill", function (d) {
                 return colorScale(d.status);;
             });
@@ -123,10 +120,10 @@ function createHeatMaptable() {
     for (var dataCopyOuterIndex in dataStatus) {
         for (var dataCopyInnerIndex in dataStatus[dataCopyOuterIndex]) {
             if (dataStatus[dataCopyOuterIndex][dataCopyInnerIndex] == "0") {
-                tempArray.push(yAxis[dataCopyInnerIndex]);
+                tempArray.push(xAxis[dataCopyInnerIndex]);
             }
         }
-        var newHTML = "<div class='time'>"+xAxis[dataCopyOuterIndex]+" - </div><div class='apis-list'>"+tempArray+"</div>"
+        var newHTML = "<div class='time'>"+yAxis[dataCopyOuterIndex]+" - </div><div class='apis-list'>"+tempArray+"</div>"
         var ele = document.getElementById("heatmap-table-wrap");
         var divWrap = document.createElement('div')
         divWrap.setAttribute("class","data-wrap");
