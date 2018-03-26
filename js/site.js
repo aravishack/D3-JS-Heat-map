@@ -47,7 +47,7 @@ function d3Call() {
             left: 50,
             right: 50
         };
-        var times = yAxis.length+5;
+        var times = yAxis.length + 5;
         var innerWidth = window.innerWidth;
         var width = Math.max(900, innerWidth) - margin.right - margin.left;
         var gridSize = Math.floor(width / times);
@@ -63,8 +63,8 @@ function d3Call() {
 
         // Create color scale
         var colorScale = d3.scaleLinear()
-            .domain([0, 1])
-            .range(["#FF0000", "#008000"]);
+            .domain([0, 1, 2])
+            .range(["#FF0000", "#008000", "#000000"]);
 
         // Add API labels
         var apiLabels = svg.selectAll(".apiLabel")
@@ -106,10 +106,15 @@ function d3Call() {
                 return (d.slot - 1) * gridSize;
             })
             .attr("class", "data")
+            .attr("rx", 4)
+            .attr("ry", 4)
             .attr("width", gridSize)
             .attr("height", gridSize)
             .style("fill", function (d) {
-                return colorScale(d.status);;
+                if((d.status != 0 && d.status != 1) || d.status == ""){
+                    return colorScale(2);
+                }
+                return colorScale(d.status);
             });
         createHeatMaptable();
     });
@@ -123,12 +128,12 @@ function createHeatMaptable() {
                 tempArray.push(xAxis[dataCopyInnerIndex]);
             }
         }
-        var newHTML = "<div class='time'>"+yAxis[dataCopyOuterIndex]+" - </div><div class='apis-list'>"+tempArray+"</div>"
+        var newHTML = "<div class='time'>" + yAxis[dataCopyOuterIndex] + " - </div><div class='apis-list'>" + tempArray + "</div>"
         var ele = document.getElementById("heatmap-table-wrap");
         var divWrap = document.createElement('div')
-        divWrap.setAttribute("class","data-wrap");
+        divWrap.setAttribute("class", "data-wrap");
         ele.appendChild(divWrap);
-        divWrap.innerHTML=newHTML;
-        tempArray.length=0;
+        divWrap.innerHTML = newHTML;
+        tempArray.length = 0;
     }
 }
